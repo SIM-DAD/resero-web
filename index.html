@@ -12,11 +12,11 @@
   <meta name="twitter:card" content="summary_large_image">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
   <link rel="icon" type="image/svg+xml" href="img/logo.svg">
   <link rel="apple-touch-icon" href="img/logo.svg">
-  <meta property="og:image" content="https://useresero.app/img/logo.svg">
-  <meta name="twitter:image" content="https://useresero.app/img/logo.svg">
+  <meta property="og:image" content="https://useresero.app/img/social-share.png">
+  <meta name="twitter:image" content="https://useresero.app/img/social-share.png">
 
   <style>
     /* TOKENS */
@@ -29,6 +29,7 @@
       --surface:   #F7F7F8;
       --border:    #E4E4E7;
       --font:      'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-display: 'JetBrains Mono', 'IBM Plex Mono', 'Berkeley Mono', ui-monospace, monospace;
       --max-w:     1080px;
       --radius:    8px;
     }
@@ -48,13 +49,36 @@
     html { scroll-behavior: smooth; }
     body {
       font-family: var(--font);
-      background: var(--bg);
       color: var(--text);
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
+      background-color: var(--bg);
+      background-image:
+        repeating-linear-gradient(0deg, rgba(15, 118, 110, 0.025) 0px, rgba(15, 118, 110, 0.025) 1px, transparent 1px, transparent 3px),
+        url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.0' numOctaves='1' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.04 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+      background-repeat: repeat;
     }
     img, video { max-width: 100%; display: block; }
     a { color: inherit; text-decoration: none; }
+
+    /* PAGE-LOAD REVEAL */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero-eyebrow, .hero h1, .hero-sub, .hero-actions, .hero-meta {
+      animation: fadeUp 0.75s cubic-bezier(0.2, 0.65, 0.3, 1) backwards;
+    }
+    .hero-eyebrow { animation-delay: 0.10s; }
+    .hero h1     { animation-delay: 0.22s; }
+    .hero-sub    { animation-delay: 0.44s; }
+    .hero-actions{ animation-delay: 0.60s; }
+    .hero-meta   { animation-delay: 0.74s; }
+    @media (prefers-reduced-motion: reduce) {
+      .hero-eyebrow, .hero h1, .hero-sub, .hero-actions, .hero-meta {
+        animation: none;
+      }
+    }
 
     /* LAYOUT */
     .container {
@@ -144,12 +168,18 @@
       margin-bottom: 1.5rem;
     }
     .hero h1 {
-      font-size: clamp(2.4rem, 6vw, 4rem);
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      line-height: 1.05;
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      font-weight: 500;
+      letter-spacing: -0.025em;
+      line-height: 1.12;
       margin-bottom: 1.5rem;
       color: var(--text);
+    }
+    .hero h1::before {
+      content: "$ ";
+      color: var(--accent);
+      font-weight: 600;
     }
     .hero p.lead {
       font-size: 1.125rem;
@@ -189,15 +219,21 @@
     }
     .section-dark .eyebrow { color: rgba(255,255,255,0.45); }
 
-    .section h2 {
-      font-size: clamp(1.8rem, 4vw, 2.5rem);
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      line-height: 1.15;
+    .section h2, .section-alt h2, .section-dark h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 3.4vw, 2.25rem);
+      font-weight: 500;
+      letter-spacing: -0.015em;
+      line-height: 1.2;
       color: var(--text);
       margin-bottom: 1.25rem;
     }
-    .section-alt h2, .section-dark h2 { color: var(--text); }
+    .section h2::before, .section-alt h2::before, .section-dark h2::before {
+      content: "# ";
+      color: var(--accent);
+      opacity: 0.6;
+      font-weight: 600;
+    }
     .section-dark h2 { color: #fff; }
     .section-sub {
       font-size: 1rem;
@@ -367,13 +403,185 @@
       .feature-cell:last-child { border-bottom: none; }
       .footer-grid { grid-template-columns: 1fr; }
     }
+
+    /* ═══ MAN-PAGE LAYOUT ═══ */
+    .manpage {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      font-family: var(--font-display);
+      color: var(--text);
+    }
+    .manpage p {
+      font-size: 1rem;
+      line-height: 1.7;
+      margin: 0 0 1.4rem;
+      color: var(--text);
+    }
+    .manpage strong { color: var(--accent); font-weight: 600; }
+    .manpage em { color: var(--accent); font-style: italic; }
+    .manpage a { color: var(--accent); border-bottom: 1px solid var(--border); transition: border-color 0.15s; }
+    .manpage a:hover { border-color: var(--accent); }
+
+    /* man-page header — RESERO(1)              User Commands              RESERO(1) */
+    .manpage-header {
+      max-width: 760px;
+      margin: 4rem auto 3rem;
+      padding: 1rem 2rem;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 1rem;
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .manpage-header span:nth-child(2) { text-align: center; color: var(--accent); }
+    .manpage-header span:nth-child(3) { text-align: right; }
+
+    /* opening: NAME section */
+    .manpage-opening {
+      max-width: 760px;
+      margin: 0 auto 3rem;
+      padding: 0 2rem;
+    }
+    .manpage-opening .section-tag {
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      margin-bottom: 0.75rem;
+      display: block;
+    }
+    .manpage-opening h1 {
+      font-family: var(--font-display);
+      font-size: clamp(1.5rem, 3vw, 2.1rem);
+      font-weight: 500;
+      line-height: 1.4;
+      letter-spacing: -0.005em;
+      margin: 0;
+      color: var(--text);
+    }
+    .manpage-opening h1 em {
+      color: var(--accent);
+      font-style: italic;
+      font-weight: 500;
+    }
+
+    /* man-page section heading: SYNOPSIS / DESCRIPTION / etc. */
+    .mp-section-head {
+      max-width: 760px;
+      margin: 3.5rem auto 1.25rem;
+      padding: 0 2rem;
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    /* command block for SYNOPSIS / EXAMPLES */
+    .mp-command {
+      max-width: 760px;
+      margin: 0 auto 1.5rem;
+      padding: 0 2rem;
+    }
+    .mp-command pre {
+      background: var(--surface);
+      border-left: 3px solid var(--accent);
+      padding: 1rem 1.25rem;
+      font-family: var(--font-display);
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: var(--text);
+      overflow-x: auto;
+      margin: 0;
+    }
+    .mp-command pre .prompt { color: var(--accent); user-select: none; }
+    .mp-command pre .comment { color: var(--muted); font-style: italic; }
+    .mp-command pre .flag { color: var(--accent); }
+
+    /* options table */
+    .mp-options {
+      max-width: 760px;
+      margin: 0 auto 1.5rem;
+      padding: 0 2rem;
+      font-family: var(--font-display);
+    }
+    .mp-options dl { display: grid; grid-template-columns: 14rem 1fr; gap: 0.5rem 1.5rem; }
+    .mp-options dt {
+      font-weight: 600;
+      color: var(--accent);
+      font-size: 0.9rem;
+      padding-top: 0.1rem;
+    }
+    .mp-options dd {
+      font-size: 0.95rem;
+      line-height: 1.65;
+      color: var(--text);
+      margin: 0;
+    }
+
+    /* end-of-manpage signature */
+    .mp-footer {
+      max-width: 760px;
+      margin: 4rem auto 5rem;
+      padding: 1rem 2rem;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 1rem;
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .mp-footer span:nth-child(2) { text-align: center; color: var(--accent); }
+    .mp-footer span:nth-child(3) { text-align: right; }
+
+    /* license-style pricing block */
+    .mp-license {
+      max-width: 760px;
+      margin: 4rem auto 3rem;
+      padding: 1.5rem 2rem;
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: var(--text);
+      background: var(--surface);
+      border-left: 3px solid var(--accent);
+    }
+    .mp-license .license-header {
+      color: var(--accent);
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+    }
+
+    @media (max-width: 720px) {
+      .mp-options dl { grid-template-columns: 1fr; gap: 0.25rem 0; }
+      .mp-options dt { padding-top: 0.75rem; }
+      .manpage-header, .mp-footer { font-size: 0.75rem; padding: 0.75rem 1.5rem; }
+    }
   </style>
 </head>
 <body>
 
   <nav class="nav" id="nav">
     <div class="nav-inner">
-      <a href="#" class="nav-brand" aria-label="Resero"><img src="img/wordmark.svg" alt="Resero"></a>
+      <a href="#" class="nav-brand" aria-label="Resero">
+        <picture>
+          <source srcset="img/wordmark-F4F4F5.svg" media="(prefers-color-scheme: dark)">
+          <img src="img/wordmark-0F766E.svg" alt="Resero">
+        </picture>
+      </a>
       <div class="nav-links">
         <a href="#how">How it works</a>
         <a href="#pricing">Pricing</a>
@@ -383,120 +591,113 @@
   </nav>
 
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="container">
-      <span class="hero-eyebrow">Free utility &mdash; coming May 2026</span>
-      <h1>The free decrypter<br>for age files.</h1>
-      <p class="lead">
-        Drag the file in. Pick an identity. Get your plaintext back.
-        Resero is a small GUI for the age encryption format, free and MIT-licensed,
-        from the same shop as Ibis, Lector, and TASS.
-      </p>
-      <div class="hero-cta">
-        <a href="#how" class="btn btn-primary">See how it works &rarr;</a>
-        <a href="https://github.com/SIM-DAD" class="btn btn-ghost" target="_blank" rel="noopener">Watch on GitHub &rarr;</a>
-      </div>
-      <p class="hero-meta">No account. No tracking. No telemetry.</p>
-    </div>
+  <!-- MAN-PAGE HEADER -->
+  <div class="manpage-header">
+    <span>RESERO(1)</span>
+    <span>User Commands</span>
+    <span>RESERO(1)</span>
+  </div>
+
+
+  <!-- NAME -->
+  <header class="manpage-opening">
+    <span class="section-tag">NAME</span>
+    <h1>resero &mdash; <em>the free decrypter for age files.</em></h1>
+  </header>
+
+
+  <!-- SYNOPSIS -->
+  <div class="mp-section-head">SYNOPSIS</div>
+  <div class="mp-command">
+    <pre><span class="prompt">$</span> resero <span class="flag">[--passphrase | --keyfile FILE | --simdad PRODUCT]</span> <span class="flag">FILE</span></pre>
+  </div>
+  <div class="mp-command">
+    <pre><span class="prompt">$</span> resero <span class="flag">--watch</span> <span class="flag">DIRECTORY</span>           <span class="comment"># folder watch mode</span></pre>
+  </div>
+
+
+  <!-- DESCRIPTION -->
+  <div class="mp-section-head">DESCRIPTION</div>
+  <div class="manpage" id="problem">
+    <p>Drag the file in. Pick an identity. Get your plaintext back. Resero is a small GUI for the age encryption format, free and <strong>MIT-licensed</strong>, from the same shop as Ibis, Lector, and TASS.</p>
+
+    <p>The age file format is small, modern, and well-specified, but the official tooling is command-line only. That is fine for sysadmins. It is less fine for a journalist on a fresh laptop, a researcher with an old archive, or a SIM DAD customer who wants their library back without reinstalling the app that wrote it. Resero is the missing GUI: open the file, hand it the right identity, get plaintext.</p>
+  </div>
+
+
+  <!-- IDENTITY MODES (OPTIONS) -->
+  <div class="mp-section-head" id="how">IDENTITY MODES</div>
+  <div class="mp-options">
+    <dl>
+      <dt>--passphrase</dt>
+      <dd>Decrypt with an scrypt-derived passphrase. Resero prompts you in a focused, single-purpose window. The passphrase never leaves the process and is zeroed on exit.</dd>
+
+      <dt>--keyfile FILE</dt>
+      <dd>Decrypt with an X25519 secret key supplied as a plain-text key file. Useful for files encrypted on another machine where the secret was exported once and is now portable.</dd>
+
+      <dt>--simdad PRODUCT</dt>
+      <dd>Auto-detect the secret from the OS keychain entry written by Ibis, Lector, or TASS. The right mode is usually obvious from the filename you dragged in.</dd>
+
+      <dt>--watch DIRECTORY</dt>
+      <dd>Folder-watch mode. Resero monitors the directory and decrypts new ciphertext as it arrives. Designed for scripted backup recovery and bulk archive workflows.</dd>
+    </dl>
+  </div>
+
+
+  <!-- EXAMPLES -->
+  <div class="mp-section-head">EXAMPLES</div>
+  <div class="mp-command">
+    <pre><span class="comment"># Decrypt a single Lector library file using the OS keychain</span>
+<span class="prompt">$</span> resero <span class="flag">--simdad</span> lector  ~/Documents/draft.md.age</pre>
+  </div>
+  <div class="mp-command">
+    <pre><span class="comment"># Decrypt every .age file in a folder with a passphrase</span>
+<span class="prompt">$</span> resero <span class="flag">--passphrase</span>  ~/backups/</pre>
+  </div>
+  <div class="mp-command">
+    <pre><span class="comment"># Recover an Ibis archive on a fresh machine using an exported key</span>
+<span class="prompt">$</span> resero <span class="flag">--keyfile</span> ibis.age-key  ~/recovered/audio/</pre>
+  </div>
+
+
+  <!-- PORTABILITY -->
+  <div class="mp-section-head">PORTABILITY</div>
+  <div class="manpage">
+    <p>age files are <strong>byte-identical</strong> across Windows, macOS, and Linux. Only the keystore differs. Export your X25519 secret from the OS where you encrypted, import it on a fresh machine, decrypt the same files. No reinstall of the original product is required, and the recovery path is documented per-platform.</p>
+  </div>
+
+
+  <!-- WHY (replaces the dark section) -->
+  <div class="mp-section-head">WHY THIS EXISTS</div>
+  <div class="manpage">
+    <p>Every SIM DAD product encrypts at rest. We could ask you to take that on faith. Instead we ship the recovery tool ourselves and license it MIT. Resero exists so the encryption story is not <em>"trust us."</em> It is <em>"here is the source, here is the binary, here is the file format spec it conforms to. Decrypt your own data without us in the loop."</em></p>
+
+    <p>No-lock-in is a claim. Resero is the proof.</p>
+  </div>
+
+
+  <!-- LICENSE (replaces pricing) -->
+  <div class="mp-section-head" id="pricing">LICENSE</div>
+  <section class="mp-license">
+    <div class="license-header">resero(1) &mdash; SIM DAD LLC, 2026</div>
+    <p>Free, forever. MIT-licensed core, GUI included. No paid tier, no coupon system, no upsell. If Resero saves you a bad afternoon, the optional in-app tip jar is there.</p>
+    <p style="color:var(--muted);font-size:0.85rem;line-height:1.7;margin-bottom:0;">Drag-drop GUI for any age v1 file &middot; passphrase, keyfile, and SIM DAD auto-detect &middot; bulk decrypt and folder watch &middot; Windows, macOS, Linux &middot; no telemetry, no account, no internet calls &middot; source on GitHub for independent audit at <a href="https://github.com/SIM-DAD" style="color:var(--accent);border-bottom:1px solid var(--border);">github.com/SIM-DAD</a>.</p>
   </section>
 
 
-  <!-- THE PROBLEM -->
-  <section class="section" id="problem">
-    <div class="container">
-      <span class="eyebrow">The problem</span>
-      <h2>Encryption stops being<br>useful the moment you<br>can&rsquo;t open the file.</h2>
-      <p class="section-sub">
-        The age file format is small, modern, and well-specified, but the official tooling is command-line only.
-        That&rsquo;s fine for sysadmins. It&rsquo;s less fine for a journalist on a fresh laptop, a researcher with an old archive,
-        or a SIM DAD customer who wants their library back without reinstalling the app that wrote it.
-        Resero is the missing GUI: open the file, hand it the right identity, get plaintext.
-      </p>
-    </div>
-  </section>
+  <!-- SEE ALSO -->
+  <div class="mp-section-head">SEE ALSO</div>
+  <div class="manpage">
+    <p><a href="https://age-encryption.org">age-encryption.org</a> &middot; <a href="https://useibis.app">useibis.app</a> &middot; <a href="https://uselector.app">uselector.app</a> &middot; <a href="https://usetass.app">usetass.app</a> &middot; <a href="https://simdadllc.com">simdadllc.com</a></p>
+  </div>
 
 
-  <!-- WHAT IT DOES -->
-  <section class="section-alt" id="how">
-    <div class="container">
-      <span class="eyebrow">What Resero does</span>
-      <h2>Drag, drop, decrypt.</h2>
-      <p class="section-sub">
-        One window. Three ways to give it your identity. Single files or a whole folder.
-      </p>
-      <div class="features-grid">
-
-        <div class="feature-cell">
-          <div class="feature-num">01</div>
-          <h3>Three identity modes</h3>
-          <p>Passphrase (scrypt), key file (X25519 secret key from a .txt), or auto-detect from your OS keychain for Ibis, Lector, and TASS libraries. The right mode is usually obvious from the file you dragged in.</p>
-        </div>
-
-        <div class="feature-cell">
-          <div class="feature-num">02</div>
-          <h3>Bulk and folder watch</h3>
-          <p>Drop a folder; Resero walks it and decrypts every age file in place. Folder watch mode keeps an eye on a directory and decrypts new ciphertext as it arrives, useful for scripted backup recovery.</p>
-        </div>
-
-        <div class="feature-cell">
-          <div class="feature-num">03</div>
-          <h3>Cross-platform, cross-OS</h3>
-          <p>age files are byte-identical across Windows, macOS, and Linux. Only the keystore differs. Export your X25519 secret from the OS where you encrypted, import it on a fresh machine, decrypt the same files. Recovery without reinstalling the original product.</p>
-        </div>
-
-        <div class="feature-cell">
-          <div class="feature-num">04</div>
-          <h3>MIT-licensed core</h3>
-          <p>The decryption module is published on GitHub under the MIT license, separately from the GUI. Audit it, fork it, ship it inside another tool. The GUI is a thin wrapper; the cryptography is not proprietary.</p>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-
-  <!-- WHY -->
-  <section class="section-dark">
-    <div class="container">
-      <span class="eyebrow">Why it&rsquo;s free</span>
-      <p class="pullquote">No-lock-in is a <em>claim</em>.<br>Resero is the <em>proof</em>.</p>
-      <p class="section-sub">
-        Every SIM DAD product encrypts at rest. We could ask you to take that on faith,
-        or we could ship the recovery tool ourselves and license it MIT.
-        Resero exists so the encryption story isn&rsquo;t "trust us." It&rsquo;s "here is the source, here is the binary,
-        here is the file format spec it conforms to, decrypt your own data without us in the loop."
-      </p>
-      <br><br>
-      <a href="https://github.com/SIM-DAD" class="btn btn-ghost-white" target="_blank" rel="noopener">View on GitHub &rarr;</a>
-    </div>
-  </section>
-
-
-  <!-- PRICING -->
-  <section class="section" id="pricing">
-    <div class="container">
-      <span class="eyebrow">Pricing</span>
-      <h2>Free. Forever. MIT.</h2>
-      <p class="section-sub" style="margin-bottom:2.5rem;">
-        No paid tier, no coupon system, no upsell. If Resero saves you a bad afternoon, the optional in-app tip jar is there.
-      </p>
-      <div class="pricing-card">
-        <div style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);">Resero</div>
-        <div class="price-tag"><sup>$</sup>0</div>
-        <div class="price-note">free &nbsp;&middot;&nbsp; MIT-licensed core &nbsp;&middot;&nbsp; optional tip jar</div>
-        <ul class="price-features">
-          <li>Drag-drop GUI for any age v1 file</li>
-          <li>Passphrase, key file, and SIM DAD auto-detect</li>
-          <li>Bulk decrypt and folder watch</li>
-          <li>Windows &middot; macOS &middot; Linux</li>
-          <li>No telemetry, no account, no internet calls</li>
-          <li>Source on GitHub for independent audit</li>
-        </ul>
-        <a href="https://github.com/SIM-DAD" class="btn btn-primary" target="_blank" rel="noopener" style="width:100%;justify-content:center;">Watch the repo &rarr;</a>
-      </div>
-    </div>
-  </section>
+  <!-- MAN-PAGE FOOTER -->
+  <div class="mp-footer">
+    <span>SIM DAD LLC</span>
+    <span>2026-05</span>
+    <span>RESERO(1)</span>
+  </div>
 
 
   <!-- FOOTER -->
@@ -504,7 +705,12 @@
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
-          <h4 aria-label="Resero"><img src="img/wordmark.svg" alt="Resero"></h4>
+          <h4 aria-label="Resero">
+            <picture>
+              <source srcset="img/wordmark-F4F4F5.svg" media="(prefers-color-scheme: dark)">
+              <img src="img/wordmark-0F766E.svg" alt="Resero">
+            </picture>
+          </h4>
           <p>A free, MIT-licensed GUI decrypter for age-encrypted files. Built by SIM DAD LLC, the makers of Ibis, Lector, and TASS.</p>
         </div>
         <div class="footer-col">

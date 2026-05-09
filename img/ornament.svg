@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 32" fill="currentColor" aria-hidden="true">
+  <!-- Resero ornament: a terminal prompt with a blinking cursor block. man-page register. -->
+  <!-- $ prompt -->
+  <text x="6" y="22" font-family="ui-monospace, 'JetBrains Mono', monospace" font-size="22" font-weight="700" fill="currentColor">$</text>
+  <!-- underscore line representing typed text -->
+  <line x1="22" y1="22" x2="42" y2="22" stroke="currentColor" stroke-width="1.5" opacity="0.45"/>
+  <!-- blinking cursor block -->
+  <rect x="46" y="8" width="11" height="16" fill="currentColor">
+    <animate attributeName="opacity" values="1;1;0;0;1" keyTimes="0;0.5;0.5;1;1" dur="1.05s" repeatCount="indefinite"/>
+  </rect>
+</svg>
