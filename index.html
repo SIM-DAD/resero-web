@@ -639,9 +639,6 @@
   <div class="mp-command">
     <pre><span class="prompt">$</span> resero <span class="flag">[--passphrase | --keyfile FILE | --simdad PRODUCT]</span> <span class="flag">FILE</span></pre>
   </div>
-  <div class="mp-command">
-    <pre><span class="prompt">$</span> resero <span class="flag">--watch</span> <span class="flag">DIRECTORY</span>           <span class="comment"># folder watch mode</span></pre>
-  </div>
 
 
   <!-- DESCRIPTION -->
@@ -658,16 +655,13 @@
   <div class="mp-options">
     <dl>
       <dt>--passphrase</dt>
-      <dd>Decrypt with an scrypt-derived passphrase. Resero prompts you in a focused, single-purpose window. The passphrase never leaves the process and is zeroed on exit.</dd>
+      <dd>Decrypt with an scrypt-derived passphrase. Resero prompts you in a focused, single-purpose window. The passphrase never leaves your machine.</dd>
 
       <dt>--keyfile FILE</dt>
       <dd>Decrypt with an X25519 secret key supplied as a plain-text key file. Useful for files encrypted on another machine where the secret was exported once and is now portable.</dd>
 
       <dt>--simdad PRODUCT</dt>
       <dd>Auto-detect the secret from the OS keychain entry written by Ibis, Lector, or TASS. The right mode is usually obvious from the filename you dragged in.</dd>
-
-      <dt>--watch DIRECTORY</dt>
-      <dd>Folder-watch mode. Resero monitors the directory and decrypts new ciphertext as it arrives. Designed for scripted backup recovery and bulk archive workflows.</dd>
     </dl>
   </div>
 
@@ -677,10 +671,6 @@
   <div class="mp-command">
     <pre><span class="comment"># Decrypt a single Lector library file using the OS keychain</span>
 <span class="prompt">$</span> resero <span class="flag">--simdad</span> lector  ~/Documents/draft.md.age</pre>
-  </div>
-  <div class="mp-command">
-    <pre><span class="comment"># Decrypt every .age file in a folder with a passphrase</span>
-<span class="prompt">$</span> resero <span class="flag">--passphrase</span>  ~/backups/</pre>
   </div>
   <div class="mp-command">
     <pre><span class="comment"># Recover an Ibis archive on a fresh machine using an exported key</span>
@@ -709,7 +699,7 @@
   <section class="mp-license">
     <div class="license-header">resero(1) &mdash; SIM DAD LLC, 2026</div>
     <p>Free, forever. MIT-licensed core, GUI included. No paid tier, no coupon system, no upsell. If Resero saves you a bad afternoon, the optional in-app tip jar is there.</p>
-    <p style="color:var(--muted);font-size:0.85rem;line-height:1.7;margin-bottom:0;">Drag-drop GUI for any age v1 file &middot; passphrase, keyfile, and SIM DAD auto-detect &middot; bulk decrypt and folder watch &middot; Windows, macOS, Linux &middot; no telemetry, no account, no internet calls &middot; source on GitHub for independent audit at <a href="https://github.com/SIM-DAD" style="color:var(--accent);border-bottom:1px solid var(--border);">github.com/SIM-DAD</a>.</p>
+    <p style="color:var(--muted);font-size:0.85rem;line-height:1.7;margin-bottom:0;">Drag-drop GUI for any age v1 file &middot; passphrase, keyfile, and SIM DAD auto-detect &middot; Windows, macOS, Linux &middot; no telemetry, no account, no internet calls &middot; source on GitHub for independent audit at <a href="https://github.com/SIM-DAD" style="color:var(--accent);border-bottom:1px solid var(--border);">github.com/SIM-DAD</a>.</p>
   </section>
 
 
