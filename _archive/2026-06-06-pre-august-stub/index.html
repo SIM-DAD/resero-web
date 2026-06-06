@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resero: the free decrypter for age files.</title>
+  <meta name="description" content="Resero is a free, MIT-licensed GUI decrypter for age-encrypted files. Drag, drop, recover. Cross-platform. No subscription. From SIM DAD LLC.">
+  <meta property="og:title" content="Resero: the free decrypter for age files.">
+  <meta property="og:description" content="Drag the file in. Pick an identity. Get your plaintext back. Free and MIT-licensed.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://useresero.app">
+  <meta property="og:image" content="https://useresero.app/img/social-share.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Resero: the free decrypter for age files.">
+  <meta name="twitter:description" content="Drag the file in. Pick an identity. Get your plaintext back. Free and MIT-licensed.">
+  <meta name="twitter:image" content="https://useresero.app/img/social-share.png">
+  <link rel="canonical" href="https://useresero.app/">
+  <meta name="author" content="SIM DAD LLC">
+  <meta name="theme-color" content="#0F766E">
+  <link rel="icon" type="image/svg+xml" href="img/logo.svg">
+  <link rel="apple-touch-icon" href="img/logo.svg">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Resero",
+    "description": "Free, MIT-licensed GUI decrypter for age-encrypted files. Drag, drop, recover. Cross-platform.",
+    "url": "https://useresero.app",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Windows 10, Windows 11, macOS, Linux",
+    "image": "https://useresero.app/img/social-share.png",
+    "license": "https://opensource.org/licenses/MIT",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "SIM DAD LLC",
+      "url": "https://simdadllc.com"
+    }
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    /* TOKENS */
+    :root {
+      --accent:    #0F766E;
+      --accent-h:  #0B5F58;
+      --text:      #0F0F0F;
+      --muted:     #6B7280;
+      --bg:        #FFFFFF;
+      --surface:   #F7F7F8;
+      --border:    #E4E4E7;
+      --font:      'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-display: 'JetBrains Mono', 'IBM Plex Mono', 'Berkeley Mono', ui-monospace, monospace;
+      --max-w:     1080px;
+      --radius:    8px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --text:    #F4F4F5;
+        --muted:   #A1A1AA;
+        --bg:      #09090B;
+        --surface: #111113;
+        --border:  #27272A;
+      }
+    }
+
+    /* RESET */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      background-color: var(--bg);
+      background-image:
+        repeating-linear-gradient(0deg, rgba(15, 118, 110, 0.025) 0px, rgba(15, 118, 110, 0.025) 1px, transparent 1px, transparent 3px),
+        url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.0' numOctaves='1' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.04 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+      background-repeat: repeat;
+    }
+    img, video { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+
+    /* PAGE-LOAD REVEAL */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero-eyebrow, .hero h1, .hero-sub, .hero-actions, .hero-meta {
+      animation: fadeUp 0.75s cubic-bezier(0.2, 0.65, 0.3, 1) backwards;
+    }
+    .hero-eyebrow { animation-delay: 0.10s; }
+    .hero h1     { animation-delay: 0.22s; }
+    .hero-sub    { animation-delay: 0.44s; }
+    .hero-actions{ animation-delay: 0.60s; }
+    .hero-meta   { animation-delay: 0.74s; }
+    @media (prefers-reduced-motion: reduce) {
+      .hero-eyebrow, .hero h1, .hero-sub, .hero-actions, .hero-meta {
+        animation: none;
+      }
+    }
+
+    /* LAYOUT */
+    .container {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* NAV */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: transparent;
+      border-bottom: 1px solid transparent;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .nav.scrolled {
+      background: var(--bg);
+      border-color: var(--border);
+    }
+    .nav-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 2rem;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-brand {
+      display: inline-flex;
+      align-items: center;
+      line-height: 0;
+    }
+    .nav-brand img {
+      height: 28px;
+      width: auto;
+      display: block;
+    }
+    .nav-links { display: flex; gap: 1.5rem; font-size: 0.875rem; }
+    .nav-links a { color: var(--muted); }
+    .nav-links a:hover { color: var(--text); }
+
+    /* BUTTONS */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.6rem 1.3rem;
+      border-radius: var(--radius);
+      font-family: var(--font);
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      border: 1px solid transparent;
+      white-space: nowrap;
+    }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { background: var(--accent-h); }
+    .btn-ghost { background: transparent; color: var(--text); border-color: var(--border); }
+    .btn-ghost:hover { border-color: var(--text); }
+    .btn-ghost-white {
+      background: transparent;
+      color: #fff;
+      border-color: rgba(255,255,255,0.3);
+    }
+    .btn-ghost-white:hover { border-color: #fff; }
+
+    /* HERO */
+    .hero {
+      padding: 6rem 0 5rem;
+      text-align: center;
+    }
+    .hero-eyebrow {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      padding: 0.4rem 0.85rem;
+      border: 1px solid var(--accent);
+      border-radius: 999px;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      font-weight: 500;
+      letter-spacing: -0.025em;
+      line-height: 1.12;
+      margin-bottom: 1.5rem;
+      color: var(--text);
+    }
+    .hero h1::before {
+      content: "$ ";
+      color: var(--accent);
+      font-weight: 600;
+    }
+    .hero p.lead {
+      font-size: 1.125rem;
+      color: var(--muted);
+      max-width: 640px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.6;
+    }
+    .hero-cta {
+      display: flex;
+      gap: 0.75rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .hero-meta {
+      margin-top: 2rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    /* SECTIONS */
+    .section       { padding: 6rem 0; border-bottom: 1px solid var(--border); }
+    .section-alt   { padding: 6rem 0; background: var(--surface); border-bottom: 1px solid var(--border); }
+    .section-dark  { padding: 6rem 0; background: #0F0F0F; color: #FFFFFF; }
+    @media (prefers-color-scheme: dark) {
+      .section-dark { background: #1C1C1E; }
+    }
+
+    .eyebrow {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+    .section-dark .eyebrow { color: rgba(255,255,255,0.45); }
+
+    .section h2, .section-alt h2, .section-dark h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 3.4vw, 2.25rem);
+      font-weight: 500;
+      letter-spacing: -0.015em;
+      line-height: 1.2;
+      color: var(--text);
+      margin-bottom: 1.25rem;
+    }
+    .section h2::before, .section-alt h2::before, .section-dark h2::before {
+      content: "# ";
+      color: var(--accent);
+      opacity: 0.6;
+      font-weight: 600;
+    }
+    .section-dark h2 { color: #fff; }
+    .section-sub {
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 640px;
+      line-height: 1.65;
+    }
+    .section-dark .section-sub { color: rgba(255,255,255,0.5); }
+
+    /* FEATURES GRID */
+    .features-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      margin-top: 3.5rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .feature-cell {
+      padding: 2rem;
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .feature-cell:nth-child(even) { border-right: none; }
+    .feature-cell:nth-last-child(-n+2) { border-bottom: none; }
+    .feature-cell h3 {
+      font-size: 0.9375rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+      letter-spacing: -0.01em;
+    }
+    .feature-cell p {
+      font-size: 0.875rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+    .feature-num {
+      font-size: 0.7rem;
+      font-weight: 800;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.75rem;
+    }
+
+    /* PULL QUOTE */
+    .pullquote {
+      font-size: clamp(1.6rem, 3vw, 2rem);
+      font-weight: 700;
+      letter-spacing: -0.015em;
+      line-height: 1.3;
+      color: #fff;
+      margin: 1.5rem 0 2rem;
+      max-width: 700px;
+    }
+    .pullquote em { color: var(--accent); font-style: normal; }
+
+    /* PRICING CARD */
+    .pricing-card {
+      max-width: 420px;
+      margin-top: 3rem;
+      padding: 2.5rem 2rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--bg);
+    }
+    .price-tag {
+      font-size: 3rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--accent);
+      margin: 0.75rem 0 0.25rem;
+    }
+    .price-tag sup {
+      font-size: 1.25rem;
+      vertical-align: top;
+      margin-right: 0.1rem;
+    }
+    .price-note {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+    }
+    .price-features {
+      list-style: none;
+      margin-bottom: 1.75rem;
+    }
+    .price-features li {
+      font-size: 0.9rem;
+      color: var(--text);
+      padding: 0.45rem 0;
+      border-bottom: 1px dashed var(--border);
+    }
+    .price-features li:last-child { border-bottom: none; }
+    .price-features li::before {
+      content: "+";
+      color: var(--accent);
+      font-weight: 700;
+      margin-right: 0.6rem;
+    }
+
+    /* FOOTER */
+    .footer {
+      padding: 3rem 0 4rem;
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 2.5rem;
+      margin-bottom: 2.5rem;
+    }
+    .footer-brand h4 {
+      font-size: 1.05rem;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.5rem;
+      line-height: 0;
+    }
+    .footer-brand h4 img {
+      height: 24px;
+      width: auto;
+      display: block;
+    }
+    .footer-brand p {
+      font-size: 0.85rem;
+      color: var(--muted);
+      max-width: 320px;
+      line-height: 1.6;
+    }
+    .footer-col h5 {
+      font-size: 0.7rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-bottom: 0.75rem;
+    }
+    .footer-col a {
+      display: block;
+      font-size: 0.875rem;
+      color: var(--text);
+      padding: 0.25rem 0;
+    }
+    .footer-col a:hover { color: var(--accent); }
+    .footer-meta {
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.8rem;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    /* MOBILE */
+    @media (max-width: 720px) {
+      .container { padding: 0 1.5rem; }
+      .hero { padding: 4rem 0 3rem; }
+      .section, .section-alt, .section-dark { padding: 4.5rem 0; }
+      .features-grid { grid-template-columns: 1fr; }
+      .feature-cell { border-right: none; }
+      .feature-cell:nth-last-child(-n+2) { border-bottom: 1px solid var(--border); }
+      .feature-cell:last-child { border-bottom: none; }
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ═══ MAN-PAGE LAYOUT ═══ */
+    .manpage {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      font-family: var(--font-display);
+      color: var(--text);
+    }
+    .manpage p {
+      font-size: 1rem;
+      line-height: 1.7;
+      margin: 0 0 1.4rem;
+      color: var(--text);
+    }
+    .manpage strong { color: var(--accent); font-weight: 600; }
+    .manpage em { color: var(--accent); font-style: italic; }
+    .manpage a { color: var(--accent); border-bottom: 1px solid var(--border); transition: border-color 0.15s; }
+    .manpage a:hover { border-color: var(--accent); }
+
+    /* man-page header — RESERO(1)              User Commands              RESERO(1) */
+    .manpage-header {
+      max-width: 760px;
+      margin: 4rem auto 3rem;
+      padding: 1rem 2rem;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 1rem;
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .manpage-header span:nth-child(2) { text-align: center; color: var(--accent); }
+    .manpage-header span:nth-child(3) { text-align: right; }
+
+    /* opening: NAME section */
+    .manpage-opening {
+      max-width: 760px;
+      margin: 0 auto 3rem;
+      padding: 0 2rem;
+    }
+    .manpage-opening .section-tag {
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      margin-bottom: 0.75rem;
+      display: block;
+    }
+    .manpage-opening h1 {
+      font-family: var(--font-display);
+      font-size: clamp(1.5rem, 3vw, 2.1rem);
+      font-weight: 500;
+      line-height: 1.4;
+      letter-spacing: -0.005em;
+      margin: 0;
+      color: var(--text);
+    }
+    .manpage-opening h1 em {
+      color: var(--accent);
+      font-style: italic;
+      font-weight: 500;
+    }
+
+    /* man-page section heading: SYNOPSIS / DESCRIPTION / etc. */
+    .mp-section-head {
+      max-width: 760px;
+      margin: 3.5rem auto 1.25rem;
+      padding: 0 2rem;
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    /* command block for SYNOPSIS / EXAMPLES */
+    .mp-command {
+      max-width: 760px;
+      margin: 0 auto 1.5rem;
+      padding: 0 2rem;
+    }
+    .mp-command pre {
+      background: var(--surface);
+      border-left: 3px solid var(--accent);
+      padding: 1rem 1.25rem;
+      font-family: var(--font-display);
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: var(--text);
+      overflow-x: auto;
+      margin: 0;
+    }
+    .mp-command pre .prompt { color: var(--accent); user-select: none; }
+    .mp-command pre .comment { color: var(--muted); font-style: italic; }
+    .mp-command pre .flag { color: var(--accent); }
+
+    /* options table */
+    .mp-options {
+      max-width: 760px;
+      margin: 0 auto 1.5rem;
+      padding: 0 2rem;
+      font-family: var(--font-display);
+    }
+    .mp-options dl { display: grid; grid-template-columns: 14rem 1fr; gap: 0.5rem 1.5rem; }
+    .mp-options dt {
+      font-weight: 600;
+      color: var(--accent);
+      font-size: 0.9rem;
+      padding-top: 0.1rem;
+    }
+    .mp-options dd {
+      font-size: 0.95rem;
+      line-height: 1.65;
+      color: var(--text);
+      margin: 0;
+    }
+
+    /* end-of-manpage signature */
+    .mp-footer {
+      max-width: 760px;
+      margin: 4rem auto 5rem;
+      padding: 1rem 2rem;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 1rem;
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .mp-footer span:nth-child(2) { text-align: center; color: var(--accent); }
+    .mp-footer span:nth-child(3) { text-align: right; }
+
+    /* license-style pricing block */
+    .mp-license {
+      max-width: 760px;
+      margin: 4rem auto 3rem;
+      padding: 1.5rem 2rem;
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: var(--text);
+      background: var(--surface);
+      border-left: 3px solid var(--accent);
+    }
+    .mp-license .license-header {
+      color: var(--accent);
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+    }
+
+    @media (max-width: 720px) {
+      .mp-options dl { grid-template-columns: 1fr; gap: 0.25rem 0; }
+      .mp-options dt { padding-top: 0.75rem; }
+      .manpage-header, .mp-footer { font-size: 0.75rem; padding: 0.75rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-brand" aria-label="Resero">
+        <picture>
+          <source srcset="img/wordmark-F4F4F5.svg" media="(prefers-color-scheme: dark)">
+          <img src="img/wordmark-0F766E.svg" alt="Resero">
+        </picture>
+      </a>
+      <div class="nav-links">
+        <a href="#how">How it works</a>
+        <a href="#pricing">Pricing</a>
+        <a href="https://github.com/SIM-DAD" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- MAN-PAGE HEADER -->
+  <div class="manpage-header">
+    <span>RESERO(1)</span>
+    <span>User Commands</span>
+    <span>RESERO(1)</span>
+  </div>
+
+
+  <!-- NAME -->
+  <header class="manpage-opening">
+    <span class="section-tag">NAME</span>
+    <h1>resero &mdash; <em>the free decrypter for age files.</em></h1>
+  </header>
+
+
+  <!-- SYNOPSIS -->
+  <div class="mp-section-head">SYNOPSIS</div>
+  <div class="mp-command">
+    <pre><span class="prompt">$</span> resero <span class="flag">[--passphrase | --keyfile FILE | --simdad PRODUCT]</span> <span class="flag">FILE</span></pre>
+  </div>
+
+
+  <!-- DESCRIPTION -->
+  <div class="mp-section-head">DESCRIPTION</div>
+  <div class="manpage" id="problem">
+    <p>Drag the file in. Pick an identity. Get your plaintext back. Resero is a small GUI for the age encryption format, free and <strong>MIT-licensed</strong>, from the same shop as Ibis, Lector, and TASS.</p>
+
+    <p>The age file format is small, modern, and well-specified, but the official tooling is command-line only. That is fine for sysadmins. It is less fine for a journalist on a fresh laptop, a researcher with an old archive, or a SIM DAD customer who wants their library back without reinstalling the app that wrote it. Resero is the missing GUI: open the file, hand it the right identity, get plaintext.</p>
+  </div>
+
+
+  <!-- IDENTITY MODES (OPTIONS) -->
+  <div class="mp-section-head" id="how">IDENTITY MODES</div>
+  <div class="mp-options">
+    <dl>
+      <dt>--passphrase</dt>
+      <dd>Decrypt with an scrypt-derived passphrase. Resero prompts you in a focused, single-purpose window. The passphrase never leaves your machine.</dd>
+
+      <dt>--keyfile FILE</dt>
+      <dd>Decrypt with an X25519 secret key supplied as a plain-text key file. Useful for files encrypted on another machine where the secret was exported once and is now portable.</dd>
+
+      <dt>--simdad PRODUCT</dt>
+      <dd>Auto-detect the secret from the OS keychain entry written by Ibis, Lector, or TASS. The right mode is usually obvious from the filename you dragged in.</dd>
+    </dl>
+  </div>
+
+
+  <!-- EXAMPLES -->
+  <div class="mp-section-head">EXAMPLES</div>
+  <div class="mp-command">
+    <pre><span class="comment"># Decrypt a single Lector library file using the OS keychain</span>
+<span class="prompt">$</span> resero <span class="flag">--simdad</span> lector  ~/Documents/draft.md.age</pre>
+  </div>
+  <div class="mp-command">
+    <pre><span class="comment"># Recover an Ibis archive on a fresh machine using an exported key</span>
+<span class="prompt">$</span> resero <span class="flag">--keyfile</span> ibis.age-key  ~/recovered/audio/</pre>
+  </div>
+
+
+  <!-- PORTABILITY -->
+  <div class="mp-section-head">PORTABILITY</div>
+  <div class="manpage">
+    <p>age files are <strong>byte-identical</strong> across Windows, macOS, and Linux. Only the keystore differs. Export your X25519 secret from the OS where you encrypted, import it on a fresh machine, decrypt the same files. No reinstall of the original product is required, and the recovery path is documented per-platform.</p>
+  </div>
+
+
+  <!-- WHY (replaces the dark section) -->
+  <div class="mp-section-head">WHY THIS EXISTS</div>
+  <div class="manpage">
+    <p>Every SIM DAD product encrypts at rest. We could ask you to take that on faith. Instead we ship the recovery tool ourselves and license it MIT. Resero exists so the encryption story is not <em>"trust us."</em> It is <em>"here is the source, here is the binary, here is the file format spec it conforms to. Decrypt your own data without us in the loop."</em></p>
+
+    <p>No-lock-in is a claim. Resero is the proof.</p>
+  </div>
+
+
+  <!-- LICENSE (replaces pricing) -->
+  <div class="mp-section-head" id="pricing">LICENSE</div>
+  <section class="mp-license">
+    <div class="license-header">resero(1) &mdash; SIM DAD LLC, 2026</div>
+    <p>Free, forever. MIT-licensed core, GUI included. No paid tier, no coupon system, no upsell. If Resero saves you a bad afternoon, the optional in-app tip jar is there.</p>
+    <p style="color:var(--muted);font-size:0.85rem;line-height:1.7;margin-bottom:0;">Drag-drop GUI for any age v1 file &middot; passphrase, keyfile, and SIM DAD auto-detect &middot; Windows, macOS, Linux &middot; no telemetry, no account, no internet calls &middot; source on GitHub for independent audit at <a href="https://github.com/SIM-DAD" style="color:var(--accent);border-bottom:1px solid var(--border);">github.com/SIM-DAD</a>.</p>
+  </section>
+
+
+  <!-- SEE ALSO -->
+  <div class="mp-section-head">SEE ALSO</div>
+  <div class="manpage">
+    <p><a href="https://age-encryption.org">age-encryption.org</a> &middot; <a href="https://useibis.app">useibis.app</a> &middot; <a href="https://uselector.app">uselector.app</a> &middot; <a href="https://usetass.app">usetass.app</a> &middot; <a href="https://simdadllc.com">simdadllc.com</a></p>
+  </div>
+
+
+  <!-- MAN-PAGE FOOTER -->
+  <div class="mp-footer">
+    <span>SIM DAD LLC</span>
+    <span>2026-05</span>
+    <span>RESERO(1)</span>
+  </div>
+
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h4 aria-label="Resero">
+            <picture>
+              <source srcset="img/wordmark-F4F4F5.svg" media="(prefers-color-scheme: dark)">
+              <img src="img/wordmark-0F766E.svg" alt="Resero">
+            </picture>
+          </h4>
+          <p>A free, MIT-licensed GUI decrypter for age-encrypted files. Built by SIM DAD LLC, the makers of Ibis, Lector, and TASS.</p>
+        </div>
+        <div class="footer-col">
+          <h5>SIM DAD</h5>
+          <a href="https://simdadllc.com">Company</a>
+          <a href="https://useibis.app">Ibis</a>
+          <a href="https://uselector.app">Lector</a>
+          <a href="https://usetass.app">TASS</a>
+        </div>
+        <div class="footer-col">
+          <h5>Resources</h5>
+          <a href="/changelog.html">Release log</a>
+          <a href="https://simdadllc.com/commitment.html">Our commitment</a>
+          <a href="https://github.com/SIM-DAD" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://age-encryption.org" target="_blank" rel="noopener">age spec</a>
+          <a href="mailto:hello@simdadllc.com">Contact</a>
+        </div>
+      </div>
+      <div class="footer-meta">
+        <span>&copy; 2026 SIM DAD LLC</span>
+        <span>Resero is a trademark of SIM DAD LLC.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 8);
+    });
+  </script>
+
+</body>
+</html>
