@@ -44,7 +44,9 @@
     /* TOKENS */
     :root {
       --accent:    #C9A24B;
-      --accent-h:  #8A6A1E;
+      --accent-h:  #6C5317;
+    /* Text-safe accent: 5.05:1 on white. The bright --accent is for large display and dark sections only. */
+    --accent-ink: #8A6A1E;
       --text:      #0F0F0F;
       --muted:     #6B7280;
       --bg:        #FFFFFF;
@@ -161,7 +163,7 @@
       border: 1px solid transparent;
       white-space: nowrap;
     }
-    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary { background: var(--accent-ink); color: #fff; }
     .btn-primary:hover { background: var(--accent-h); }
     .btn-ghost { background: transparent; color: var(--text); border-color: var(--border); }
     .btn-ghost:hover { border-color: var(--text); }
@@ -183,7 +185,7 @@
       font-weight: 700;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--accent);
+      color: var(--accent-ink);
       padding: 0.4rem 0.85rem;
       border: 1px solid var(--accent);
       border-radius: 999px;
@@ -200,7 +202,7 @@
     }
     .hero h1::before {
       content: "$ ";
-      color: var(--accent);
+      color: var(--accent-ink);
       font-weight: 600;
     }
     .hero p.lead {
@@ -236,7 +238,7 @@
       font-weight: 800;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--accent);
+      color: var(--accent-ink);
       margin-bottom: 1rem;
     }
     .section-dark .eyebrow { color: rgba(255,255,255,0.45); }
@@ -296,7 +298,7 @@
     .feature-num {
       font-size: 0.7rem;
       font-weight: 800;
-      color: var(--accent);
+      color: var(--accent-ink);
       text-transform: uppercase;
       letter-spacing: 0.1em;
       margin-bottom: 0.75rem;
@@ -312,7 +314,7 @@
       margin: 1.5rem 0 2rem;
       max-width: 700px;
     }
-    .pullquote em { color: var(--accent); font-style: normal; }
+    .pullquote em { color: var(--accent-ink); font-style: normal; }
 
     /* PRICING CARD */
     .pricing-card {
@@ -327,7 +329,7 @@
       font-size: 3rem;
       font-weight: 800;
       letter-spacing: -0.03em;
-      color: var(--accent);
+      color: var(--accent-ink);
       margin: 0.75rem 0 0.25rem;
     }
     .price-tag sup {
@@ -353,7 +355,7 @@
     .price-features li:last-child { border-bottom: none; }
     .price-features li::before {
       content: "+";
-      color: var(--accent);
+      color: var(--accent-ink);
       font-weight: 700;
       margin-right: 0.6rem;
     }
@@ -402,7 +404,7 @@
       color: var(--text);
       padding: 0.25rem 0;
     }
-    .footer-col a:hover { color: var(--accent); }
+    .footer-col a:hover { color: var(--accent-ink); }
     .footer-meta {
       padding-top: 1.5rem;
       border-top: 1px solid var(--border);
@@ -440,10 +442,10 @@
       margin: 0 0 1.4rem;
       color: var(--text);
     }
-    .manpage strong { color: var(--accent); font-weight: 600; }
-    .manpage em { color: var(--accent); font-style: italic; }
-    .manpage a { color: var(--accent); border-bottom: 1px solid var(--border); transition: border-color 0.15s; }
-    .manpage a:hover { border-color: var(--accent); }
+    .manpage strong { color: var(--accent-ink); font-weight: 600; }
+    .manpage em { color: var(--accent-ink); font-style: italic; }
+    .manpage a { color: var(--accent-ink); border-bottom: 1px solid var(--border); transition: border-color 0.15s; }
+    .manpage a:hover { border-color: var(--accent-ink); }
 
     /* man-page header — RESERO(1)              User Commands              RESERO(1) */
     .manpage-header {
@@ -461,7 +463,7 @@
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
     }
-    .manpage-header span:nth-child(2) { text-align: center; color: var(--accent); }
+    .manpage-header span:nth-child(2) { text-align: center; color: var(--accent-ink); }
     .manpage-header span:nth-child(3) { text-align: right; }
 
     /* opening: NAME section */
@@ -474,7 +476,7 @@
       font-family: var(--font-display);
       font-size: 0.85rem;
       font-weight: 600;
-      color: var(--accent);
+      color: var(--accent-ink);
       letter-spacing: 0.1em;
       margin-bottom: 0.75rem;
       display: block;
@@ -489,7 +491,7 @@
       color: var(--text);
     }
     .manpage-opening h1 em {
-      color: var(--accent);
+      color: var(--accent-ink);
       font-style: italic;
       font-weight: 500;
     }
@@ -502,7 +504,7 @@
       font-family: var(--font-display);
       font-size: 0.95rem;
       font-weight: 700;
-      color: var(--accent);
+      color: var(--accent-ink);
       letter-spacing: 0.12em;
       text-transform: uppercase;
     }
@@ -524,9 +526,9 @@
       overflow-x: auto;
       margin: 0;
     }
-    .mp-command pre .prompt { color: var(--accent); user-select: none; }
+    .mp-command pre .prompt { color: var(--accent-ink); user-select: none; }
     .mp-command pre .comment { color: var(--muted); font-style: italic; }
-    .mp-command pre .flag { color: var(--accent); }
+    .mp-command pre .flag { color: var(--accent-ink); }
 
     /* options table */
     .mp-options {
@@ -538,7 +540,7 @@
     .mp-options dl { display: grid; grid-template-columns: 14rem 1fr; gap: 0.5rem 1.5rem; }
     .mp-options dt {
       font-weight: 600;
-      color: var(--accent);
+      color: var(--accent-ink);
       font-size: 0.9rem;
       padding-top: 0.1rem;
     }
@@ -565,7 +567,7 @@
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
     }
-    .mp-footer span:nth-child(2) { text-align: center; color: var(--accent); }
+    .mp-footer span:nth-child(2) { text-align: center; color: var(--accent-ink); }
     .mp-footer span:nth-child(3) { text-align: right; }
 
     /* license-style pricing block */
@@ -581,7 +583,7 @@
       border-left: 3px solid var(--accent);
     }
     .mp-license .license-header {
-      color: var(--accent);
+      color: var(--accent-ink);
       font-weight: 700;
       letter-spacing: 0.05em;
       margin-bottom: 0.5rem;
