@@ -7,7 +7,6 @@
 @font-face { font-family: "Crimson Pro"; src: url("/fonts/crimson-pro-latin-600-italic.woff2") format("woff2"); font-weight: 600; font-style: italic; font-display: swap; }
 @font-face { font-family: "Archivo"; src: url("/fonts/archivo-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
 @font-face { font-family: "Archivo"; src: url("/fonts/archivo-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-style: normal; font-display: swap; }
-@font-face { font-family: "JetBrains Mono"; src: url("/fonts/jetbrains-mono-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
 
 :root {
   color-scheme: light dark;
@@ -21,7 +20,6 @@
   --rule: #BDBBB3;
   --serif: "Crimson Pro", "Iowan Old Style", Georgia, serif;
   --label: "Archivo", "Helvetica Neue", Arial, sans-serif;
-  --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
   --measure: 66ch;
   --side: 12rem;
   --wide: 1080px;
@@ -74,16 +72,6 @@ strong { font-weight: 600; }
 .nav-links a { color: var(--ink); text-decoration: none; padding: 0.2rem 0; border-bottom: 1px solid transparent; }
 .nav-links a:hover { border-bottom-color: var(--ink); }
 
-/* ------------------------------------------------------------ running head and foot (the packet's document identifier) */
-.manpage-header, .mp-footer {
-  max-width: var(--wide); margin: 0 auto; padding: 0.7rem 2rem;
-  display: grid; grid-template-columns: 1fr auto 1fr; gap: 1rem;
-  font-family: var(--label); font-size: 0.8125rem; color: var(--muted);
-}
-.manpage-header span:nth-child(2), .mp-footer span:nth-child(2) { text-align: center; }
-.manpage-header span:nth-child(3), .mp-footer span:nth-child(3) { text-align: right; }
-.mp-footer { border-top: 1px solid var(--rule); margin-top: 4rem; margin-bottom: 0; }
-
 /* ------------------------------------------------------------ the brass plate (the one bold thing) */
 .plate-wrap { max-width: var(--wide); margin: 0 auto; padding: 0 2rem; }
 .manpage-opening {
@@ -93,11 +81,6 @@ strong { font-weight: 600; }
   border-radius: 4px;
 }
 .plate-mark { width: 7.5rem; height: auto; filter: brightness(0); }
-.manpage-opening .section-tag {
-  display: block; font-family: var(--label); font-weight: 600; font-size: 0.9375rem;
-  text-transform: lowercase; margin-bottom: 0.4rem;
-}
-.manpage-opening .section-tag::first-letter { text-transform: uppercase; }
 .manpage-opening h1 {
   margin: 0; font-family: var(--serif); font-weight: 600;
   font-size: clamp(2.4rem, 6vw, 4.75rem); line-height: 1.02; letter-spacing: -0.012em;
@@ -110,29 +93,17 @@ strong { font-weight: 600; }
 .mp-section-head {
   grid-column: 1; margin: 2.6rem 0 0; padding-top: 0.35rem;
   font-family: var(--label); font-weight: 600; font-size: 0.9375rem; line-height: 1.35;
-  text-transform: lowercase; color: var(--ink);
+  color: var(--ink);
 }
-.mp-section-head::first-letter { text-transform: uppercase; }
 .packet > :not(.mp-section-head) { grid-column: 2; }
 .packet > .mp-section-head + * { margin-top: 2.6rem; }
-.mp-command + .mp-command { margin-top: 0.9rem; }
 
 .manpage p:last-child { margin-bottom: 0; }
 .manpage em { font-style: italic; }
 
-/* literal commands: the only monospace on the page */
-.mp-command pre {
-  margin: 0; padding: 1rem 1.25rem; overflow-x: auto;
-  background: var(--board); border: 1px solid var(--rule); border-radius: 3px;
-  font-family: var(--mono); font-size: 0.875rem; line-height: 1.7; color: var(--ink);
-  white-space: pre-wrap; overflow-wrap: anywhere;
-}
-.mp-command pre .prompt { user-select: none; color: var(--muted); }
-.mp-command pre .comment { color: var(--muted); }
-
 /* the suite: an exhibit list */
 .mp-options dl { margin: 0; }
-.mp-options dt { font-family: var(--mono); font-size: 0.875rem; color: var(--ink);
+.mp-options dt { font-family: var(--label); font-weight: 600; font-size: 0.9375rem; color: var(--ink);
   padding-top: 1rem; border-top: 1px solid var(--rule); }
 .mp-options dt:first-child { padding-top: 0; border-top: 0; }
 .mp-options dd { margin: 0.3rem 0 1rem; }
@@ -211,9 +182,6 @@ textarea { min-height: 6rem; resize: vertical; }
 .top .brand img { height: 26px; width: auto; }
 .top .back { font-family: var(--label); font-size: 0.9375rem; color: var(--ink); }
 section.lede { padding: 3rem 0 1.5rem; }
-section.lede .tag-name { display: block; font-family: var(--label); font-weight: 600; font-size: 0.9375rem;
-  color: var(--brass-ink); text-transform: lowercase; margin-bottom: 0.6rem; }
-section.lede .tag-name::first-letter { text-transform: uppercase; }
 section.lede p { color: var(--muted); max-width: var(--measure); margin: 0.9rem 0 0; }
 section.lede .note { font-family: var(--label); font-size: 0.875rem; }
 .log { border-top: 1px solid var(--rule); padding: 1.75rem 0 3.5rem; }
@@ -228,8 +196,7 @@ section.lede .note { font-family: var(--label); font-size: 0.875rem; }
 
 /* ------------------------------------------------------------ narrow screens */
 @media (max-width: 760px) {
-  .nav-inner, .manpage-header, .mp-footer, .plate-wrap { padding-left: 1.25rem; padding-right: 1.25rem; }
-  .manpage-header, .mp-footer { font-size: 0.75rem; }
+  .nav-inner, .plate-wrap { padding-left: 1.25rem; padding-right: 1.25rem; }
   .manpage-opening { grid-template-columns: 1fr; gap: 1.25rem; padding: 2rem 1.5rem 2.25rem; }
   .plate-mark { width: 4.5rem; }
   .packet, .practice-inner { grid-template-columns: minmax(0, 1fr); padding-left: 1.25rem; padding-right: 1.25rem; }

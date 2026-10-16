@@ -55,21 +55,12 @@
   </nav>
 
 
-  <!-- MAN-PAGE HEADER -->
-  <div class="manpage-header">
-    <span>RESERO(1)</span>
-    <span>User Commands</span>
-    <span>RESERO(1)</span>
-  </div>
-
-
-  <!-- NAME: the brass lock plate -->
+  <!-- the brass lock plate -->
   <div class="plate-wrap">
     <header class="manpage-opening">
       <img class="plate-mark" src="img/logo.svg" alt="" width="160" height="150">
       <div>
-        <span class="section-tag">NAME</span>
-        <h1>resero: <em>the SIM DAD workbench.</em></h1>
+        <h1>Resero: <em>the SIM DAD workbench.</em></h1>
       </div>
     </header>
   </div>
@@ -77,15 +68,7 @@
   <main class="packet" id="main">
 
 
-  <!-- SYNOPSIS -->
-  <div class="mp-section-head">SYNOPSIS</div>
-  <div class="mp-command">
-    <pre tabindex="0"><span class="prompt">$</span> resero <span class="flag">[--open ibis | lector | orator | velamen]</span> <span class="flag">[WORKSPACE]</span></pre>
-  </div>
-
-
-  <!-- DESCRIPTION -->
-  <div class="mp-section-head">DESCRIPTION</div>
+  <div class="mp-section-head">What Resero is</div>
   <div class="manpage" id="problem">
     <p>Resero (Latin <em>reser&#333;</em>: <em>I unlock</em>) is the workbench that holds the whole SIM DAD suite: one window where your transcripts, drafts, analyses, and videos live together, entirely on <strong>your machine</strong>.</p>
 
@@ -93,55 +76,46 @@
   </div>
 
 
-  <!-- IDENTITY MODES (OPTIONS) -->
-  <div class="mp-section-head" id="how">THE SUITE</div>
+  <div class="mp-section-head" id="how">The suite</div>
   <div class="mp-options">
     <dl>
-      <dt>--open ibis</dt>
+      <dt>Ibis</dt>
       <dd>Private, local transcription. Watch folders, speaker turns, redaction review, and export to Word, VTT, CSV, or JSON.</dd>
 
-      <dt>--open lector</dt>
+      <dt>Lector</dt>
       <dd>Write it, hear it back. Read-aloud with your system voices, source and formatted views of one document, and find and replace built for long files.</dd>
 
-      <dt>--open velamen</dt>
+      <dt>Velamen</dt>
       <dd>De-identification review. Finds structured identifiers by shape and checksum, shows every finding for review before it is replaced, and records what ran and what was found. Built to support a Safe Harbor review, not to certify one.</dd>
 
-      <dt>--open orator</dt>
+      <dt>Orator</dt>
       <dd>Present what you already wrote. Outline in, narrated and chaptered video out, voiced entirely on your machine.</dd>
     </dl>
   </div>
 
 
-  <!-- EXAMPLES -->
-  <div class="mp-section-head">EXAMPLES</div>
-  <div class="mp-command">
-    <pre tabindex="0"><span class="comment"># Morning: yesterday's interview is already a transcript, waiting in the suite feed</span>
-<span class="prompt">$</span> resero <span class="flag">--open</span> ibis  ~/Research/interviews/</pre>
-  </div>
-  <div class="mp-command">
-    <pre tabindex="0"><span class="comment"># Afternoon: hear the draft read back, mark what needs fixing, strip names before sharing</span>
-<span class="prompt">$</span> resero <span class="flag">--open</span> lector  ~/Research/draft.md</pre>
+  <div class="mp-section-head">A day with Resero</div>
+  <div class="manpage">
+    <p>In the morning, yesterday&rsquo;s interview is already a transcript, waiting in the suite feed.</p>
+    <p>By afternoon, you hear the draft read back, mark what needs fixing, and strip names before sharing.</p>
   </div>
 
 
-  <!-- PORTABILITY -->
-  <div class="mp-section-head">PRIVACY</div>
+  <div class="mp-section-head">Privacy</div>
   <div class="manpage">
     <p>Everything at rest is encrypted with <strong>age</strong>, keyed to your operating system&rsquo;s credential store. Nothing phones home. The one network call any tool can make, a model download, is announced in the interface while it happens. Recordings, drafts, and data never leave the machine unless you export them yourself.</p>
   </div>
 
 
-  <!-- WHY (replaces the dark section) -->
-  <div class="mp-section-head">WHY THIS EXISTS</div>
+  <div class="mp-section-head">Why this exists</div>
   <div class="manpage">
     <p>Researchers, clinicians, lawyers, and journalists work with material that cannot go to someone else&rsquo;s cloud. The tools they are offered anyway are subscriptions to other people&rsquo;s servers. Resero exists so the private path is also the <em>good</em> path: one workbench where serious tools share one workflow, and the data stays where the duty of care lives, with you.</p>
   </div>
 
 
-  <!-- LICENSE (replaces pricing) -->
-  <div class="mp-section-head" id="pricing">STATUS</div>
+  <div class="mp-section-head" id="pricing">Status</div>
   <section class="mp-license">
-    <div class="license-header"><span>resero(1)</span> <span>SIM DAD LLC, 2026</span></div>
+    <div class="license-header"><span>Resero</span> <span>SIM DAD LLC, 2026</span></div>
     <p><strong>Coming soon at $159.</strong> One-time purchase, no subscription. Windows, with updates included. Every tool works standalone; the workbench is where they become more than the sum. <a href="/beta/">Ask for early access</a> to hear first when there is a build to try.</p>
     <p>Bought on their own, Lector ($29), Ibis Pro ($59), and Orator ($129) come to $217. Resero is $159, and it adds Velamen and the shared workbench, neither sold separately.</p>
     <ul class="facts">
@@ -155,8 +129,7 @@
   </section>
 
 
-  <!-- SEE ALSO -->
-  <div class="mp-section-head">SEE ALSO</div>
+  <div class="mp-section-head">See also</div>
   <div class="manpage">
     <p>The free, MIT-licensed <strong>age-file decrypter</strong> previously introduced on this page is not going away; it continues, free, under a new name. Its promise is unchanged: decrypt your own data without us in the loop.</p>
     <ul class="see-also">
@@ -170,14 +143,6 @@
 
 
   </main>
-
-  <!-- MAN-PAGE FOOTER -->
-  <div class="mp-footer">
-    <span>SIM DAD LLC</span>
-    <span>2026-10</span>
-    <span>RESERO(1)</span>
-  </div>
-
 
   <!-- FOOTER -->
   
