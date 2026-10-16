@@ -1,0 +1,211 @@
+/* useresero.app: the review packet, fastened with a brass lock plate.
+   Every token traces to brief 6 (m4:/Volumes/One Touch/30-llc/SIM-DAD/site-copy/DESIGN-BRIEFS-2026-10-15.md). */
+
+@font-face { font-family: "Crimson Pro"; src: url("/fonts/crimson-pro-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Crimson Pro"; src: url("/fonts/crimson-pro-latin-400-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: "Crimson Pro"; src: url("/fonts/crimson-pro-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-style: normal; font-display: swap; }
+@font-face { font-family: "Crimson Pro"; src: url("/fonts/crimson-pro-latin-600-italic.woff2") format("woff2"); font-weight: 600; font-style: italic; font-display: swap; }
+@font-face { font-family: "Archivo"; src: url("/fonts/archivo-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Archivo"; src: url("/fonts/archivo-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-style: normal; font-display: swap; }
+
+:root {
+  color-scheme: light dark;
+  --paper: #FFFFFF;
+  --ink: #000000;
+  --brass: #C9A24B;
+  --brass-ink: #6E5314;
+  --brass-deep: #B48E36;
+  --board: #E8E8E4;
+  --muted: #4A4A46;
+  --rule: #BDBBB3;
+  --serif: "Crimson Pro", "Iowan Old Style", Georgia, serif;
+  --label: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --measure: 66ch;
+  --side: 12rem;
+  --wide: 1080px;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #161512;
+    --ink: #F3F1EC;
+    --brass-ink: #D8B864;
+    --board: #201E19;
+    --muted: #BDB8AC;
+    --rule: #45413A;
+  }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 1.1875rem;
+  line-height: 1.6;
+  font-kerning: normal;
+}
+img { max-width: 100%; height: auto; display: block; }
+a { color: var(--brass-ink); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.18em; }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+@media (prefers-color-scheme: dark) { :focus-visible { outline-color: var(--brass); } }
+p { margin: 0 0 1.1em; }
+strong { font-weight: 600; }
+
+.skip { position: absolute; left: -9999px; }
+.skip:focus { position: fixed; left: 1rem; top: 1rem; z-index: 10; background: var(--paper); color: var(--ink);
+  padding: 0.75rem 1rem; border: 2px solid var(--ink); font-family: var(--label); font-size: 0.9375rem; }
+
+/* Wordmark: the existing gold file, set in black on paper and left gold inside the dark case. */
+.wordmark { filter: brightness(0); }
+@media (prefers-color-scheme: dark) { .wordmark { filter: none; } }
+
+/* ------------------------------------------------------------ nav */
+.nav { border-bottom: 1px solid var(--rule); }
+.nav-inner { max-width: var(--wide); margin: 0 auto; padding: 1.1rem 2rem; display: flex; align-items: center;
+  justify-content: space-between; gap: 1.5rem; flex-wrap: wrap; }
+.nav-brand { line-height: 0; }
+.nav-brand img { height: 26px; width: auto; }
+.nav-links { display: flex; gap: 1.5rem; flex-wrap: wrap; font-family: var(--label); font-size: 0.9375rem; }
+.nav-links a { color: var(--ink); text-decoration: none; padding: 0.2rem 0; border-bottom: 1px solid transparent; }
+.nav-links a:hover { border-bottom-color: var(--ink); }
+
+/* ------------------------------------------------------------ the brass plate (the one bold thing) */
+.plate-wrap { max-width: var(--wide); margin: 0 auto; padding: 0 2rem; }
+.manpage-opening {
+  background: var(--brass); color: #000;
+  display: grid; grid-template-columns: auto 1fr; gap: 2.5rem; align-items: center;
+  padding: 3rem 3rem 3.25rem;
+  border-radius: 4px;
+}
+.plate-mark { width: 7.5rem; height: auto; filter: brightness(0); }
+.manpage-opening h1 {
+  margin: 0; font-family: var(--serif); font-weight: 600;
+  font-size: clamp(2.4rem, 6vw, 4.75rem); line-height: 1.02; letter-spacing: -0.012em;
+}
+.manpage-opening h1 em { font-style: normal; }
+
+/* ------------------------------------------------------------ packet body: side heads in the margin */
+.packet { max-width: var(--wide); margin: 0 auto; padding: 1.5rem 2rem 0;
+  display: grid; grid-template-columns: var(--side) minmax(0, var(--measure)); column-gap: 3rem; }
+.mp-section-head {
+  grid-column: 1; margin: 2.6rem 0 0; padding-top: 0.35rem;
+  font-family: var(--label); font-weight: 600; font-size: 0.9375rem; line-height: 1.35;
+  color: var(--ink);
+}
+.packet > :not(.mp-section-head) { grid-column: 2; }
+.packet > .mp-section-head + * { margin-top: 2.6rem; }
+
+.manpage p:last-child { margin-bottom: 0; }
+.manpage em { font-style: italic; }
+
+/* the suite: an exhibit list */
+.mp-options dl { margin: 0; }
+.mp-options dt { font-family: var(--label); font-weight: 600; font-size: 0.9375rem; color: var(--ink);
+  padding-top: 1rem; border-top: 1px solid var(--rule); }
+.mp-options dt:first-child { padding-top: 0; border-top: 0; }
+.mp-options dd { margin: 0.3rem 0 1rem; }
+
+/* status: the archive-box panel */
+.mp-license { background: var(--board); border: 1px solid var(--rule); border-radius: 3px; padding: 0 1.5rem 1.4rem; }
+.mp-license .license-header {
+  display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+  margin: 0 -1.5rem 1.25rem; padding: 0.6rem 1.5rem;
+  border-bottom: 1px solid var(--rule);
+  font-family: var(--label); font-size: 0.8125rem; color: var(--muted);
+}
+.mp-license .facts { list-style: none; margin: 1.25rem 0 0; padding: 1rem 0 0; border-top: 1px solid var(--rule);
+  font-family: var(--label); font-size: 0.875rem; line-height: 1.55; color: var(--muted);
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr)); gap: 0.35rem 1.5rem; }
+
+.see-also { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.4rem 1.5rem; }
+
+/* ------------------------------------------------------------ the practice behind the product (board) */
+.practice { background: var(--board); border-top: 1px solid var(--rule); padding: 3.5rem 2rem; margin-top: 0; }
+.practice-inner { max-width: var(--wide); margin: 0 auto; padding: 0 2rem; display: grid;
+  grid-template-columns: var(--side) minmax(0, var(--measure)); column-gap: 3rem; }
+.practice-inner > * { grid-column: 2; }
+.practice-eyebrow { grid-column: 1; grid-row: 1 / span 2; margin: 0.45rem 0 0; font-family: var(--label);
+  font-weight: 600; font-size: 0.9375rem; line-height: 1.35; color: var(--ink); }
+.practice h2 { font-family: var(--serif); font-weight: 600; font-size: 1.75rem; line-height: 1.2; margin: 0 0 1rem; }
+.practice-cta { color: var(--muted); margin-bottom: 0; }
+
+/* ------------------------------------------------------------ footer */
+.footer { background: var(--board); border-top: 1px solid var(--rule); padding: 2.75rem 2rem 3rem; }
+.footer .container { max-width: var(--wide); margin: 0 auto; padding: 0 2rem; }
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 2.5rem; margin-bottom: 2.25rem; }
+.footer-brand h4 { margin: 0 0 0.75rem; line-height: 0; }
+.footer-brand h4 img { height: 22px; width: auto; }
+.footer-brand p { font-size: 1rem; color: var(--muted); max-width: 34ch; margin: 0; }
+.footer-col h5 { margin: 0 0 0.6rem; font-family: var(--label); font-weight: 600; font-size: 0.875rem; color: var(--ink); }
+.footer-col a { display: block; padding: 0.2rem 0; font-family: var(--label); font-size: 0.9375rem; color: var(--ink); text-decoration: none; }
+.footer-col a:hover { text-decoration: underline; }
+.footer-meta { padding-top: 1.25rem; border-top: 1px solid var(--rule); display: flex; justify-content: space-between;
+  flex-wrap: wrap; gap: 0.75rem; font-family: var(--label); font-size: 0.8125rem; color: var(--muted); }
+
+/* ------------------------------------------------------------ buttons and forms (beta page) */
+.btn, button {
+  display: inline-block; font-family: var(--label); font-weight: 600; font-size: 1rem;
+  padding: 0.8rem 1.5rem; border: 1px solid var(--brass-deep); border-radius: 3px;
+  background: var(--brass); color: #000; cursor: pointer;
+  transition: background-color 120ms ease;
+}
+.btn:hover, button:hover:not(:disabled) { background: var(--brass-deep); }
+button:disabled { cursor: progress; opacity: 0.75; }
+
+.form-page { max-width: 40rem; margin: 0 auto; padding: 3.5rem 1.5rem 5rem; }
+.form-page .eyebrow { font-family: var(--label); font-weight: 600; font-size: 0.9375rem; color: var(--brass-ink); margin: 0 0 0.6rem; }
+.form-page h1, .lede h1 { font-family: var(--serif); font-weight: 600; font-size: clamp(2.25rem, 5vw, 3.25rem);
+  line-height: 1.05; letter-spacing: -0.01em; margin: 0 0 0.75rem; }
+.form-page .lede { font-size: 1.3rem; color: var(--muted); margin: 0 0 2rem; }
+.form-page ul { padding-left: 1.2rem; margin: 0 0 2rem; }
+.form-page li { margin-bottom: 0.5rem; }
+.form-page hr { border: 0; border-top: 1px solid var(--rule); margin: 2.5rem 0; }
+label { display: block; font-family: var(--label); font-weight: 600; font-size: 1rem; margin: 1.4rem 0 0.4rem; }
+.hint { font-weight: 400; color: var(--muted); font-size: 0.9375rem; }
+input, textarea { width: 100%; padding: 0.7rem 0.8rem; font-family: var(--serif); font-size: 1.1875rem; color: var(--ink);
+  background: var(--paper); border: 1px solid var(--muted); border-radius: 3px; }
+textarea { min-height: 6rem; resize: vertical; }
+.form-page button { margin-top: 1.75rem; }
+.fine { color: var(--muted); font-size: 1rem; margin-top: 0.9rem; }
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.msg { padding: 0.9rem 1rem; border: 1px solid var(--ink); background: var(--board); margin-bottom: 1.5rem; }
+[hidden] { display: none !important; }
+
+/* ------------------------------------------------------------ release log */
+.wrap { max-width: 46rem; margin: 0 auto; padding: 0 1.5rem; }
+.top { padding: 2rem 0 1.25rem; border-bottom: 1px solid var(--rule); display: flex; align-items: center;
+  justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.top .brand { line-height: 0; }
+.top .brand img { height: 26px; width: auto; }
+.top .back { font-family: var(--label); font-size: 0.9375rem; color: var(--ink); }
+section.lede { padding: 3rem 0 1.5rem; }
+section.lede p { color: var(--muted); max-width: var(--measure); margin: 0.9rem 0 0; }
+section.lede .note { font-family: var(--label); font-size: 0.875rem; }
+.log { border-top: 1px solid var(--rule); padding: 1.75rem 0 3.5rem; }
+.rel .ver .name { font-family: var(--label); font-weight: 600; font-size: 1rem; }
+.rel .summary { margin: 0.6rem 0 0; max-width: var(--measure); }
+.rel ul.hi { margin: 0.9rem 0 0; padding-left: 1.2rem; color: var(--muted); max-width: var(--measure); }
+.foot { border-top: 1px solid var(--rule); padding: 1.75rem 0 3rem; display: flex; align-items: center;
+  justify-content: space-between; gap: 1rem; flex-wrap: wrap; font-family: var(--label); }
+.foot .brand { font-weight: 600; }
+.foot .links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+.foot a { font-size: 0.9375rem; color: var(--ink); }
+
+/* ------------------------------------------------------------ narrow screens */
+@media (max-width: 760px) {
+  .nav-inner, .plate-wrap { padding-left: 1.25rem; padding-right: 1.25rem; }
+  .manpage-opening { grid-template-columns: 1fr; gap: 1.25rem; padding: 2rem 1.5rem 2.25rem; }
+  .plate-mark { width: 4.5rem; }
+  .packet, .practice-inner { grid-template-columns: minmax(0, 1fr); padding-left: 1.25rem; padding-right: 1.25rem; }
+  .practice-inner { padding: 0; }
+  .practice { padding: 3rem 1.25rem; }
+  .packet > :not(.mp-section-head), .practice-inner > *, .practice-eyebrow { grid-column: 1; }
+  .practice-eyebrow { grid-row: auto; margin-bottom: 0.5rem; }
+  .packet > .mp-section-head + * { margin-top: 0.6rem; }
+  .footer { padding: 2.5rem 1.25rem 3rem; }
+  .footer .container { padding: 0; }
+  .footer-grid { grid-template-columns: 1fr; gap: 1.75rem; }
+}
