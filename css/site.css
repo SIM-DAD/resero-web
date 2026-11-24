@@ -136,10 +136,10 @@ strong { font-weight: 600; }
 .footer { background: var(--board); border-top: 1px solid var(--rule); padding: 2.75rem 2rem 3rem; }
 .footer .container { max-width: var(--wide); margin: 0 auto; padding: 0 2rem; }
 .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 2.5rem; margin-bottom: 2.25rem; }
-.footer-brand h4 { margin: 0 0 0.75rem; line-height: 0; }
-.footer-brand h4 img { height: 22px; width: auto; }
+.footer-brand h2 { margin: 0 0 0.75rem; line-height: 0; font-size: inherit; }
+.footer-brand h2 img { height: 22px; width: auto; }
 .footer-brand p { font-size: 1rem; color: var(--muted); max-width: 34ch; margin: 0; }
-.footer-col h5 { margin: 0 0 0.6rem; font-family: var(--label); font-weight: 600; font-size: 0.875rem; color: var(--ink); }
+.footer-col h3 { margin: 0 0 0.6rem; font-family: var(--label); font-weight: 600; font-size: 0.875rem; color: var(--ink); }
 .footer-col a { display: block; padding: 0.2rem 0; font-family: var(--label); font-size: 0.9375rem; color: var(--ink); text-decoration: none; }
 .footer-col a:hover { text-decoration: underline; }
 .footer-meta { padding-top: 1.25rem; border-top: 1px solid var(--rule); display: flex; justify-content: space-between;
@@ -209,3 +209,17 @@ section.lede .note { font-family: var(--label); font-size: 0.875rem; }
   .footer .container { padding: 0; }
   .footer-grid { grid-template-columns: 1fr; gap: 1.75rem; }
 }
+
+/* Skip link and 44 px tap targets (checklist A04, C01) */
+.skip { display: inline-flex; align-items: center; min-height: 44px; }
+main:focus { outline: none; }
+.nav-brand { display: inline-flex; align-items: center; min-height: 44px; }
+.nav-links a, .see-also a { display: inline-flex; align-items: center; min-height: 44px; padding: 0; }
+.nav-links, .see-also { row-gap: 0; }
+.footer-col a { display: flex; align-items: center; min-height: 44px; padding: 0; }
+.mp-license .facts a { padding-block: 0.9rem; }
+/* Measure: 65 to 75 characters a line (checklist D04) */
+.manpage p, .mp-license p, .practice p { max-width: 58ch; }
+/* Subpages: back links, brand links, and footer links at 44 px (checklist C01) */
+.top .brand, .top .back, .foot .links a { display: inline-flex; align-items: center; min-height: 44px; min-width: 44px; }
+.foot .links { row-gap: 0; }
